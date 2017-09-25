@@ -1,0 +1,55 @@
+package me.kangarko.kagameapi.event;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+
+import lombok.Getter;
+import lombok.Setter;
+import me.kangarko.kagameapi.type.MenuType;
+
+/**
+ * An internal event so a menu is opened
+ */
+@Getter
+public final class PluginShouldFireMenuEvent extends Event implements Cancellable {
+
+	private static final HandlerList handlers = new HandlerList();
+
+	/**
+	 * What menu to open
+	 */
+	private final MenuType type;
+
+	/**
+	 * The player to whom to open
+	 */
+	private final Player player;
+
+	/**
+	 * The data to be put into the menu class when initializing
+	 */
+	private final Object[] data;
+
+	public PluginShouldFireMenuEvent(MenuType type, Player player, Object... data) {
+		this.type = type;
+		this.player = player;
+		this.data = data;
+	}
+
+	/**
+	 * Should we prevent to display this menu?
+	 */
+	@Setter
+	private boolean cancelled;
+
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
+	}
+
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+}
