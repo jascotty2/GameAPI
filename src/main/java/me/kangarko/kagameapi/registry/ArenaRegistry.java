@@ -1,6 +1,7 @@
 package me.kangarko.kagameapi.registry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,9 +30,6 @@ public class ArenaRegistry {
 	private static final ArenaManager arenaManager = new CommonArenaManager();
 
 	public static void register(ArenaPlugin plugin, Arena arena) {
-		if (!registered.containsKey(plugin))
-			System.out.println("Hooked into: " + plugin.getName());
-
 		final List<Arena> current = registered.getOrDefault(plugin, new ArrayList<>());
 		Validate.isTrue(!current.contains(arena), "Arena " + arena.getName() + " already registered for " + plugin.getName());
 
@@ -48,6 +46,10 @@ public class ArenaRegistry {
 
 	public static void unregisterAll(ArenaPlugin plugin) {
 		registered.remove(plugin);
+	}
+
+	public static Set<ArenaPlugin> getRegisteredPlugins() {
+		return Collections.unmodifiableSet(registered.keySet());
 	}
 
 	public static final class CommonArenaManager implements ArenaManager {
