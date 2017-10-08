@@ -18,6 +18,11 @@ public final class PluginShouldFireMenuEvent extends Event implements Cancellabl
 	private static final HandlerList handlers = new HandlerList();
 
 	/**
+	 * What plugin
+	 */
+	private final String plugin;
+
+	/**
 	 * What menu to open
 	 */
 	private final MenuType type;
@@ -32,7 +37,8 @@ public final class PluginShouldFireMenuEvent extends Event implements Cancellabl
 	 */
 	private final Object[] data;
 
-	public PluginShouldFireMenuEvent(MenuType type, Player player, Object... data) {
+	public PluginShouldFireMenuEvent(String plugin, MenuType type, Player player, Object... data) {
+		this.plugin = plugin;
 		this.type = type;
 		this.player = player;
 		this.data = data;

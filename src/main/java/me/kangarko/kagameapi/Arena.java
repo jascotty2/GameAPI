@@ -110,6 +110,13 @@ public interface Arena {
 	 */
 	public int getRemainingSeconds();
 
+	/**
+	 * The plugin that owns this arena.
+	 *
+	 * @return the JavaPlugin's name, for example CoreArena or Puncher
+	 */
+	public String getPlugin();
+
 	// ----------------------------------------------------------------------------------------
 	// Private API methods
 	// ----------------------------------------------------------------------------------------
