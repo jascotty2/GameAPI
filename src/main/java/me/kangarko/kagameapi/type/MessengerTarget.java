@@ -10,12 +10,12 @@ public enum MessengerTarget {
 	ARENA,
 
 	/**
-	 * Players in the same world as the arena is within, used by automode world mode
+	 * Players in the same world as the arena is within, used by world automatic mode
 	 */
 	WORLD,
 
 	/**
-	 * Everyone on the server, used by automode server mode
+	 * Everyone on the server, used by server automatic mode
 	 */
 	GLOBAL
 }

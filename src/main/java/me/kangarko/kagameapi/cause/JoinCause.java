@@ -8,7 +8,7 @@ public enum JoinCause {
 	//SPECTATE,
 
 	/**
-	 * Player has been joined via auto-mode
+	 * Player has been joined automatically, via AutoPlay for example
 	 */
 	AUTO_JOIN,
 

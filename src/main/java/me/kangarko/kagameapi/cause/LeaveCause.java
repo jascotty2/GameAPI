@@ -38,7 +38,7 @@ public enum LeaveCause {
 	NO_ENOUGH_CLASS,
 
 	/**
-	 * Exited from the arena by the auto-mode menu
+	 * Exited from the arena automatically, via AutoPlay for example
 	 */
-	AUTO_MODE_EXIT,
+	AUTO_MODE,
 }
