@@ -14,8 +14,10 @@ import org.bukkit.entity.Player;
 import lombok.Getter;
 import me.kangarko.kagameapi.Arena;
 import me.kangarko.kagameapi.ArenaSign;
+import me.kangarko.kagameapi.ArenaSigns;
 import me.kangarko.kagameapi.plugin.ArenaManager;
 import me.kangarko.kagameapi.plugin.ArenaPlugin;
+import me.kangarko.kagameapi.type.ArenaState;
 
 /**
  * Stores plugins.
@@ -55,43 +57,51 @@ public class ArenaRegistry {
 	public static final class CommonArenaManager implements ArenaManager {
 
 		@Override
-		public ArenaSign findArenaSign(Sign state) {
-			for (final ArenaPlugin plugin : registered.keySet()) {
-				final ArenaSign found = plugin.getArenas().findArenaSign(state);
+		public final ArenaSign findArenaSign(Sign state) {
+			for (final Arena arena : getArenas()) {
+				final ArenaSigns signs = arena.getData().getSigns();
 
-				if (found != null)
-					return found;
+				if (signs != null) {
+					final ArenaSign arenasign = signs.getSignAt(state.getLocation());
+
+					if (arenasign != null)
+						return arenasign;
+				}
 			}
 
 			return null;
 		}
 
 		@Override
-		public Arena findArena(Player pl) {
-			for (final ArenaPlugin plugin : registered.keySet()) {
-				final Arena found = plugin.getArenas().findArena(pl);
+		public final Arena findArena(Player pl) {
+			for (final Arena arena : getArenas()) {
+				if (!arena.getSetup().isReady())
+					continue;
 
-				if (found != null)
-					return found;
+				if (arena.getState() == ArenaState.STOPPED)
+					continue;
+
+				if (arena.getPlayers().contains(pl)) {
+					Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Illegal state of " + arena.getName());
+
+					return arena;
+				}
 			}
 
 			return null;
 		}
 
 		@Override
-		public Arena findArena(String name) {
-			for (final ArenaPlugin plugin : registered.keySet()) {
-				final Arena found = plugin.getArenas().findArena(name);
-
-				if (found != null)
-					return found;
-			}
+		public final Arena findArena(String name) {
+			for (final Arena arena : getArenas())
+				if (arena.getName().equalsIgnoreCase(name))
+					return arena;
 
 			return null;
 		}
 
 		@Override
-		public Set<Arena> getArenas() {
+		public final Set<Arena> getArenas() {
 			final List<Arena> all = new ArrayList<>();
 
 			for (final List<Arena> pluginArenas : registered.values())
@@ -101,24 +111,15 @@ public class ArenaRegistry {
 		}
 
 		@Override
-		public boolean isPlaying(Player pl) {
-			for (final ArenaPlugin plugin : registered.keySet()) {
-				final boolean playing = plugin.getArenas().isPlaying(pl);
-
-				if (playing)
-					return true;
-			}
-
-			return false;
+		public final boolean isPlaying(Player pl) {
+			return findArena(pl) != null;
 		}
 
 		@Override
-		public List<String> getArenaNames() {
+		public final List<String> getArenaNames() {
 			final List<String> all = new ArrayList<>();
 
-			for (final List<Arena> pluginArenas : registered.values())
-				for (final Arena arena : pluginArenas)
-					all.add(arena.getName());
+			getArenas().forEach( (a) -> all.add(a.getName()) );
 
 			return all;
 		}
