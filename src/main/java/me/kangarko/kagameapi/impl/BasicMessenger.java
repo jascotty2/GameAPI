@@ -1,8 +1,6 @@
 package me.kangarko.kagameapi.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -40,37 +38,15 @@ public final class BasicMessenger implements ArenaMessenger {
 		player.sendMessage(replaceVariables(message.replace("{player}", player.getName())) );
 	}
 
-	public final void broadcastAndLog(String message) {
-		broadcast0(getRecipients(), message, true);
-	}
-
-	public final void broadcastExcept(Player player, Player exception, String message) {
-		final List<Player> receivers = new ArrayList<>(getRecipients());
-		receivers.remove(exception);
-
-		broadcast(receivers, message.replace("{player}", player.getName()));
-	}
-
 	/**
 	 * Tells all players in the arena, replaces variables
 	 */
 	@Override
 	public final void broadcast(String message) {
-		broadcast0(getRecipients(), message, false);
-	}
-
-	public final void broadcast(Iterable<? extends CommandSender> toWhom, String message) {
-		broadcast0(toWhom, message, false);
-	}
-
-	private final void broadcast0(Iterable<? extends CommandSender> toWhom, String message, boolean log) {
 		message = replaceVariables(message);
 
-		for (final CommandSender sender : toWhom)
+		for (final CommandSender sender : getRecipients())
 			sender.sendMessage(message.replace("{player}", sender.getName()));
-
-		if (log)
-			Bukkit.getConsoleSender().sendMessage(message);
 	}
 
 	@Override
