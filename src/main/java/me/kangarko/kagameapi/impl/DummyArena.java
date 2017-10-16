@@ -41,7 +41,7 @@ import me.kangarko.kagameapi.utils.ExpItemTag;
  * events automatically on player join or quit, lobby start and arena start and end.
  */
 @RequiredArgsConstructor
-public abstract class BasicArena implements Arena {
+public abstract class DummyArena implements Arena {
 
 	/**
 	 * The name of your arena
