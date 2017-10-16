@@ -53,8 +53,13 @@ public final class BasicMessenger implements ArenaMessenger {
 	public final void broadcastBar(String message) {
 		final BaseComponent[] comp = TextComponent.fromLegacyText(replaceVariables(message));
 
-		for (final Player pl : getRecipients())
-			pl.spigot().sendMessage(ChatMessageType.ACTION_BAR, comp);
+		try {
+			for (final Player pl : getRecipients())
+				pl.spigot().sendMessage(ChatMessageType.ACTION_BAR, comp);
+
+		} catch (final NoSuchMethodError er) {
+			broadcast(message);
+		}
 	}
 
 	@Override
