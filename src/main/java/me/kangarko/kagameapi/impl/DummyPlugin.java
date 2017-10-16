@@ -8,9 +8,7 @@ import me.kangarko.kagameapi.plugin.ArenaPlugin;
 import me.kangarko.kagameapi.registry.ArenaRegistry;
 
 /**
- * Represents a dummy arena plugin using shared arena manager.
- *
- * Make your JavaPlugin extend this.
+ * Represents a dummy arena plugin using a shared arena manager.
  */
 @RequiredArgsConstructor
 public final class DummyPlugin implements ArenaPlugin {
