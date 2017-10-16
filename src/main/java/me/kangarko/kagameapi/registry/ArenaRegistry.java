@@ -54,6 +54,12 @@ public class ArenaRegistry {
 		return Collections.unmodifiableSet(registered.keySet());
 	}
 
+	public static List<Arena> getArenas(ArenaPlugin plugin) {
+		final List<Arena> list = registered.get(plugin);
+
+		return list != null ? Collections.unmodifiableList(list) : null;
+	}
+
 	public static final class CommonArenaManager implements ArenaManager {
 
 		@Override
