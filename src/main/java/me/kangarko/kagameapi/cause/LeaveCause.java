@@ -8,6 +8,11 @@ public enum LeaveCause {
 	KILLED,
 
 	/**
+	 * For example when the player changes worlds and thus effectively escapes the arena.
+	 */
+	ESCAPED,
+
+	/**
 	 * Left the game
 	 */
 	DISCONNECT,
