@@ -34,7 +34,7 @@ public class InventoryStorage {
 	private final Map<String, StoredInventory> inventories = new HashMap<>();
 
 	public final void saveInventoryClone(Player pl) {
-		Validate.isTrue(getStored(pl) == null, "Player " + pl.getName() + " already has stored inventory!");
+		//Validate.isTrue(getStored(pl) == null, "Player " + pl.getName() + " already has stored inventory!");
 
 		final StoredInventory s = StoredInventory.builder()
 
@@ -131,6 +131,16 @@ public class InventoryStorage {
 		} catch (final Throwable err) {}
 
 		inventories.remove(pl.getName());
+	}
+
+	public final boolean dumpIfStored(Player pl) {
+		if (hasStored(pl)) {
+			inventories.remove(pl.getName());
+
+			return true;
+		}
+
+		return false;
 	}
 
 	public final boolean hasStored(Player pl) {
