@@ -88,7 +88,7 @@ public final class BasicMessenger implements ArenaMessenger {
 			case WORLD:
 				return arena.getData().getRegion().getCenter().getWorld().getPlayers();
 
-			case GLOBAL:
+			case SERVER:
 				return Bukkit.getOnlinePlayers();
 
 			default: throw new RuntimeException("Unhandled target " + target);

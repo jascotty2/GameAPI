@@ -1,5 +1,10 @@
 package me.kangarko.kagameapi.cause;
 
+import me.kangarko.kagameapi.Arena;
+
+/**
+ * The reason why an {@link Arena} stopped.
+ */
 public enum StopCause {
 
 	/**
@@ -17,10 +22,24 @@ public enum StopCause {
 	 */
 	INTERRUPTED_COMMAND,
 
+	/**
+	 * Stopped by AutoPlay plugin when the rotation is suspended
+	 */
+	INTERRUPTED_AUTO_SUSPENDED,
+
+	/**
+	 * Stopped due to an error
+	 */
 	INTERRUPTED_ERROR,
 
+	/**
+	 * Stopped due to a server or plugin reload
+	 */
 	INTERRUPTED_RELOAD,
 
+	/**
+	 * Stopped due to being empty
+	 */
 	INTERRUPTED_LAST_PLAYER_LEFT,
 
 	/**

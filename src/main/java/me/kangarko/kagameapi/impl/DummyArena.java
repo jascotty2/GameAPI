@@ -38,7 +38,11 @@ import me.kangarko.kagameapi.utils.ExpItemTag;
 
 /**
  * A very simple implementation of the Arena, firing
- * events automatically on player join or quit, lobby start and arena start and end.
+ * events automatically on
+ *
+ *  1) player join & quit,
+ * 	2) lobby start, and
+ *  3) arena start & end.
  */
 @RequiredArgsConstructor
 public abstract class DummyArena implements Arena {
@@ -73,7 +77,7 @@ public abstract class DummyArena implements Arena {
 		if (!callEvent(new ArenaPreJoinEvent(this, cause, pl)))
 			return false;
 
-		final boolean success = onPostJoin(pl, cause);
+		final boolean success = handleJoin(pl, cause);
 
 		callEvent(new ArenaJoinEvent(this, cause, pl));
 		return success;
@@ -86,14 +90,14 @@ public abstract class DummyArena implements Arena {
 	 * @param player the player
 	 * @param cause the cause
 	 */
-	protected abstract boolean onPostJoin(Player player, JoinCause cause);
+	protected abstract boolean handleJoin(Player player, JoinCause cause);
 
 	@Override
 	public final boolean kickPlayer(Player pl, LeaveCause cause) {
 		if (!callEvent(new ArenaPreLeaveEvent(this, cause, pl)))
 			return false;
 
-		final boolean success = onPostLeave(pl, cause);
+		final boolean success = handleLeave(pl, cause);
 
 		callEvent(new ArenaLeaveEvent(this, cause, pl));
 		return success;
@@ -106,19 +110,18 @@ public abstract class DummyArena implements Arena {
 	 * @param player the player
 	 * @param cause the cause
 	 */
-	protected abstract boolean onPostLeave(Player player, LeaveCause cause);
+	protected abstract boolean handleLeave(Player player, LeaveCause cause);
 
 	@Override
-	public final void onPostLoad() {
+	public void onPostLoad() {
 	}
 
 	@Override
-	public final void teleportPlayerToSpawn(Player pl) {
-		throw new RuntimeException("Not implemented");
+	public void teleportPlayerToSpawn(Player pl) {
 	}
 
 	@Override
-	public final void onSnapshotUpdate(boolean save, ArenaSnapshotStage stage) {
+	public void onSnapshotUpdate(boolean save, ArenaSnapshotStage stage) {
 	}
 
 	@Override
@@ -126,13 +129,13 @@ public abstract class DummyArena implements Arena {
 		state = ArenaState.RUNNING;
 
 		callEvent(new ArenaStartEvent(this));
-		return onPostStart();
+		return handleArenaStart();
 	}
 
 	/**
 	 * Called after arena starts and the {@link ArenaStartEvent} has been fired.
 	 */
-	protected abstract boolean onPostStart();
+	protected abstract boolean handleArenaStart();
 
 	@Override
 	public final void onLobbyStart() {
@@ -152,7 +155,7 @@ public abstract class DummyArena implements Arena {
 		Bukkit.getPluginManager().callEvent(new ArenaStopEvent(this, cause));
 
 		try {
-			onPostStop();
+			handleArenaStop();
 		} finally {
 			stopping = false;
 		}
@@ -161,7 +164,7 @@ public abstract class DummyArena implements Arena {
 	/**
 	 * Called when the arena ends and the {@link ArenaStopEvent} has been fired.
 	 */
-	protected abstract void onPostStop();
+	protected abstract void handleArenaStop();
 
 	@Override
 	public void onPlayerPvP(EntityDamageByEntityEvent e, Player damager, Player victim, double damage) {
@@ -233,7 +236,7 @@ public abstract class DummyArena implements Arena {
 	 * @param e the event
 	 * @return true if the event was not cancelled, meaning it has passed.
 	 */
-	protected final boolean callEvent(org.bukkit.event.Event e) {
+	private final boolean callEvent(org.bukkit.event.Event e) {
 		Bukkit.getPluginManager().callEvent(e);
 
 		return e instanceof Cancellable ? !((Cancellable)e).isCancelled() : true;

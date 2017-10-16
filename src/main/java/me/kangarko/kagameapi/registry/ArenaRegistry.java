@@ -20,9 +20,10 @@ import me.kangarko.kagameapi.plugin.ArenaPlugin;
 import me.kangarko.kagameapi.type.ArenaState;
 
 /**
- * Stores plugins.
+ * The main class that you need to utilize in order for your plugin to be
+ * recognized within other plugins like AutoPlay.
  *
- * Please register your arena manually!
+ * Please register your arena manually at {@link #register(ArenaPlugin, Arena)}!
  */
 public class ArenaRegistry {
 
@@ -31,6 +32,12 @@ public class ArenaRegistry {
 	@Getter
 	private static final ArenaManager arenaManager = new CommonArenaManager();
 
+	/**
+	 * Register your arena within your arena plugin.
+	 *
+	 * @param plugin the plugin
+	 * @param arena the arena
+	 */
 	public static void register(ArenaPlugin plugin, Arena arena) {
 		final List<Arena> current = registered.getOrDefault(plugin, new ArrayList<>());
 		Validate.isTrue(!current.contains(arena), "Arena " + arena.getName() + " already registered for " + plugin.getName());
@@ -39,27 +46,52 @@ public class ArenaRegistry {
 		registered.put(plugin, current);
 	}
 
+	/**
+	 * Unregister an arena of a certain arena plugin.
+	 *
+	 * @param plugin the plugin
+	 * @param arena the arena
+	 */
 	public static void unregister(ArenaPlugin plugin, Arena arena) {
 		final List<Arena> current = registered.getOrDefault(plugin, new ArrayList<>());
 		Validate.isTrue(current.remove(arena), "Arena " + arena.getName() + " is not registered for " + plugin.getName());
 
-		registered.put(plugin, current);
+		current.remove(arena);
 	}
 
+	/**
+	 * Clears all registered arenas for a plugin.
+	 *
+	 * @param plugin the plugin
+	 */
 	public static void unregisterAll(ArenaPlugin plugin) {
 		registered.remove(plugin);
 	}
 
+	/**
+	 * Get all registered arena plugins.
+	 *
+	 * @return registered plugins
+	 */
 	public static Set<ArenaPlugin> getRegisteredPlugins() {
 		return Collections.unmodifiableSet(registered.keySet());
 	}
 
+	/**
+	 * Get all arenas for a plugin.
+	 *
+	 * @param plugin the plugin
+	 * @return the arenas for that plugin
+	 */
 	public static List<Arena> getArenas(ArenaPlugin plugin) {
 		final List<Arena> list = registered.get(plugin);
 
 		return list != null ? Collections.unmodifiableList(list) : null;
 	}
 
+	/**
+	 * Represents an arena manager that is shared for all of the registered arenas.
+	 */
 	public static final class CommonArenaManager implements ArenaManager {
 
 		@Override
@@ -84,11 +116,8 @@ public class ArenaRegistry {
 				if (!arena.getSetup().isReady())
 					continue;
 
-				if (arena.getState() == ArenaState.STOPPED)
-					continue;
-
 				if (arena.getPlayers().contains(pl)) {
-					Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Illegal state of " + arena.getName());
+					Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Found player '" + pl.getName() + "' in a stopped arena " + arena.getName() + " by " + arena.getPlugin());
 
 					return arena;
 				}

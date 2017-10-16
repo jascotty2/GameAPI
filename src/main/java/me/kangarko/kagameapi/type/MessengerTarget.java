@@ -17,5 +17,5 @@ public enum MessengerTarget {
 	/**
 	 * Everyone on the server, used by server automatic mode
 	 */
-	GLOBAL
+	SERVER
 }
