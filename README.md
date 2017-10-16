@@ -1,15 +1,13 @@
 # KaGameAPI
-Open-source library for mini-game plugins. This is a dummy plugin that must be installed onto your server. 
-
-Packaging within your plugin will break the point of this plugin (and the licence :P)! 
+Open-source library for mini-game plugins. This is a full plugin that shall be placed onto your server. It does nothing on its own, but allows other plugins to inter-communicate and it makes it easier for you to create event/minigame plugins.
 
 ## Goal
 * Provide developers a simpler way of creating mini-game plugins based on arenas.
-* Allow auto-mode plugins to work flawlesly over any plugin supporting this library. An auto-mode plugin is capable of running arenas infinitely without requiring players' to join manually, allowing servers on Bungee to be dedicated to a mini-game easily.
+* Allow plugins to work flawlesly over any plugin supporting this library. For example, an AutoPlay plugin is capable of running arenas infinitely without requiring players' to join manually, allowing servers on Bungee to be dedicated to a mini-game easily.
 
 ## Current state
-* Basic implementation done.
-* Somewhat documented. Methods in interfaces without "public" declarator are subject of change anytime, unannounced.
+* Basic and extended implementation done.
+* Partially documented. Methods in interfaces without "public" declarator are subject of change anytime, unannounced.
 
 ## How to Use
 0. Install KaGameAPI on your server.
