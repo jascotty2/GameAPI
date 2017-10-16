@@ -10,7 +10,7 @@ import lombok.Setter;
 import me.kangarko.kagameapi.type.MenuType;
 
 /**
- * An internal event so a menu is opened
+ * An internal event so a menu is opened.
  */
 @Getter
 public final class PluginShouldFireMenuEvent extends Event implements Cancellable {
