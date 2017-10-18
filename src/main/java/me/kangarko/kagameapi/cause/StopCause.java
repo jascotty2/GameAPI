@@ -28,6 +28,16 @@ public enum StopCause {
 	INTERRUPTED_AUTO_SUSPENDED,
 
 	/**
+	 * Stopped by AutoPlay plugin when the maximum allowed arena time is up
+	 */
+	INTERRUPTED_AUTO_COUNTDOWN,
+
+	/**
+	 * Stopped by AutoPlay plugin when we attempt to start a minigame plugin but they reported a failed attempt
+	 */
+	INTERRUPTED_AUTO_START_FAILED,
+
+	/**
 	 * Stopped due to an error
 	 */
 	INTERRUPTED_ERROR,
