@@ -9,11 +9,11 @@ import me.kangarko.kagameapi.Arena;
 import me.kangarko.kagameapi.cause.StopCause;
 
 /**
- * Triggered when the arena stops for any reason (stop command, reload, error, or naturally)
+ * Triggered after the arena stopped for any reason (stop command, reload, error, or naturally)
  */
 @Getter
 @RequiredArgsConstructor
-public final class ArenaStopEvent extends Event {
+public final class ArenaPostStopEvent extends Event {
 
 	private static final HandlerList handlers = new HandlerList();
 
