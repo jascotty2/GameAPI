@@ -23,6 +23,7 @@ import me.kangarko.kagameapi.cause.JoinCause;
 import me.kangarko.kagameapi.cause.LeaveCause;
 import me.kangarko.kagameapi.cause.StopCause;
 import me.kangarko.kagameapi.event.ArenaPreLeaveEvent;
+import me.kangarko.kagameapi.plugin.ArenaPlugin;
 import me.kangarko.kagameapi.type.ArenaState;
 import me.kangarko.kagameapi.utils.ExpItemTag;
 public interface Arena {
@@ -113,9 +114,9 @@ public interface Arena {
 	/**
 	 * The plugin that owns this arena.
 	 *
-	 * @return the JavaPlugin's name, for example CoreArena or Puncher
+	 * @return the plugin
 	 */
-	public String getPlugin();
+	public ArenaPlugin getPlugin();
 
 	// ----------------------------------------------------------------------------------------
 	// Private API methods

@@ -17,11 +17,11 @@ public interface ArenaRegion extends ConfigSerializable {
 	public Location getSecondary();
 
 	public default Location getCenter() {
-		return new Location(
+		return getWorld() != null ? new Location(
 				getPrimary().getWorld(),
 				(getPrimary().getX() + getSecondary().getX()) / 2,
 				(getPrimary().getY() + getSecondary().getY()) / 2,
-				(getPrimary().getZ() + getSecondary().getZ()) / 2);
+				(getPrimary().getZ() + getSecondary().getZ()) / 2) : null;
 	}
 
 	public Block[] getBlocks();
@@ -29,7 +29,7 @@ public interface ArenaRegion extends ConfigSerializable {
 	public Entity[] getEntities();
 
 	public default World getWorld() {
-		return getPrimary().getWorld();
+		return getPrimary() != null ? getPrimary().getWorld() : null;
 	}
 
 	public boolean isWithin(Location loc);

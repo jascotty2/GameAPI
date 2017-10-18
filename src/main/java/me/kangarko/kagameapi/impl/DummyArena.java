@@ -31,8 +31,9 @@ import me.kangarko.kagameapi.event.ArenaLeaveEvent;
 import me.kangarko.kagameapi.event.ArenaPreJoinEvent;
 import me.kangarko.kagameapi.event.ArenaPreLeaveEvent;
 import me.kangarko.kagameapi.event.ArenaStartEvent;
-import me.kangarko.kagameapi.event.ArenaStopEvent;
+import me.kangarko.kagameapi.event.ArenaPostStopEvent;
 import me.kangarko.kagameapi.event.LobbyStartEvent;
+import me.kangarko.kagameapi.plugin.ArenaPlugin;
 import me.kangarko.kagameapi.type.ArenaState;
 import me.kangarko.kagameapi.utils.ExpItemTag;
 
@@ -43,6 +44,9 @@ import me.kangarko.kagameapi.utils.ExpItemTag;
  *  1) player join & quit,
  * 	2) lobby start, and
  *  3) arena start & end.
+ *
+ *  Finally, we also handle a simple end count down.
+ *  Feel free to explore this class to get a basics understanding on how it works.
  */
 @RequiredArgsConstructor
 public abstract class DummyArena implements Arena {
@@ -55,7 +59,7 @@ public abstract class DummyArena implements Arena {
 	/**
 	 * Your plugin that creates the arena
 	 */
-	private final String plugin;
+	private final ArenaPlugin plugin;
 
 	/**
 	 * The inbuilt messenger for sending messages.
@@ -71,6 +75,10 @@ public abstract class DummyArena implements Arena {
 	 * An internal flag to workaround some stuff.
 	 */
 	private boolean stopping;
+
+	@Override
+	public void onPostLoad() {
+	}
 
 	@Override
 	public final boolean joinPlayer(Player pl, JoinCause cause) {
@@ -113,18 +121,6 @@ public abstract class DummyArena implements Arena {
 	protected abstract boolean handleLeave(Player player, LeaveCause cause);
 
 	@Override
-	public void onPostLoad() {
-	}
-
-	@Override
-	public void teleportPlayerToSpawn(Player pl) {
-	}
-
-	@Override
-	public void onSnapshotUpdate(boolean save, ArenaSnapshotStage stage) {
-	}
-
-	@Override
 	public final boolean onArenaStart() {
 		state = ArenaState.RUNNING;
 
@@ -152,19 +148,27 @@ public abstract class DummyArena implements Arena {
 		state = ArenaState.STOPPED;
 		stopping = true;
 
-		Bukkit.getPluginManager().callEvent(new ArenaStopEvent(this, cause));
-
 		try {
-			handleArenaStop();
+			handleArenaStop(cause);
+
+			Bukkit.getPluginManager().callEvent(new ArenaPostStopEvent(this, cause));
 		} finally {
 			stopping = false;
 		}
 	}
 
 	/**
-	 * Called when the arena ends and the {@link ArenaStopEvent} has been fired.
+	 * Called when the arena ends and the {@link ArenaPostStopEvent} has been fired.
 	 */
-	protected abstract void handleArenaStop();
+	protected abstract void handleArenaStop(StopCause cause);
+
+	@Override
+	public void teleportPlayerToSpawn(Player pl) {
+	}
+
+	@Override
+	public void onSnapshotUpdate(boolean save, ArenaSnapshotStage stage) {
+	}
 
 	@Override
 	public void onPlayerPvP(EntityDamageByEntityEvent e, Player damager, Player victim, double damage) {
@@ -248,7 +252,7 @@ public abstract class DummyArena implements Arena {
 	}
 
 	@Override
-	public final String getPlugin() {
+	public final ArenaPlugin getPlugin() {
 		return plugin;
 	}
 
@@ -265,5 +269,10 @@ public abstract class DummyArena implements Arena {
 	@Override
 	public final ArenaState getState() {
 		return state;
+	}
+
+	@Override
+	public String toString() {
+		return "DummyArena{name=" + name + ",plugin=" + plugin.getName() + "}";
 	}
 }

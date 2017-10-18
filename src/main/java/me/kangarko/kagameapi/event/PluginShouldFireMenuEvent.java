@@ -7,6 +7,7 @@ import org.bukkit.event.HandlerList;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.kangarko.kagameapi.plugin.ArenaPlugin;
 import me.kangarko.kagameapi.type.MenuType;
 
 /**
@@ -21,7 +22,7 @@ public final class PluginShouldFireMenuEvent extends Event implements Cancellabl
 	/**
 	 * What plugin
 	 */
-	private final String plugin;
+	private final ArenaPlugin plugin;
 
 	/**
 	 * What menu to open
@@ -38,7 +39,7 @@ public final class PluginShouldFireMenuEvent extends Event implements Cancellabl
 	 */
 	private final Object[] data;
 
-	public PluginShouldFireMenuEvent(String plugin, MenuType type, Player player, Object... data) {
+	public PluginShouldFireMenuEvent(ArenaPlugin plugin, MenuType type, Player player, Object... data) {
 		this.plugin = plugin;
 		this.type = type;
 		this.player = player;

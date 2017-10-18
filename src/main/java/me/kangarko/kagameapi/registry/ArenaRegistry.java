@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import lombok.Getter;
 import me.kangarko.kagameapi.Arena;
@@ -17,6 +22,7 @@ import me.kangarko.kagameapi.ArenaSign;
 import me.kangarko.kagameapi.ArenaSigns;
 import me.kangarko.kagameapi.plugin.ArenaManager;
 import me.kangarko.kagameapi.plugin.ArenaPlugin;
+import me.kangarko.kagameapi.plugin.KaGameAPIPlugin;
 import me.kangarko.kagameapi.type.ArenaState;
 
 /**
@@ -38,12 +44,29 @@ public class ArenaRegistry {
 	 * @param plugin the plugin
 	 * @param arena the arena
 	 */
-	public static void register(ArenaPlugin plugin, Arena arena) {
-		final List<Arena> current = registered.getOrDefault(plugin, new ArrayList<>());
-		Validate.isTrue(!current.contains(arena), "Arena " + arena.getName() + " already registered for " + plugin.getName());
+	public static void register(Arena arena) {
+		final List<Arena> current = registered.getOrDefault(arena.getPlugin(), new ArrayList<>());
+		Validate.isTrue(!current.contains(arena), "Arena " + arena.getName() + " already registered for " + arena.getPlugin().getName());
+
+		if (!registered.containsKey(arena.getPlugin()))
+			log(arena.getPlugin().getPlugin());
 
 		current.add(arena);
-		registered.put(plugin, current);
+		registered.put(arena.getPlugin(), current);
+	}
+
+	// Print to the console that it has been recorded for the first time.
+	private static final void log(Plugin plugin) {
+		final Plugin instance = KaGameAPIPlugin.getPlugin(KaGameAPIPlugin.class);
+
+		// Delay so we wont interrupt a plugin's loading pace.
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				Bukkit.getLogger().info("[" + instance.getName() + "] Successfully hooked into: " + plugin);
+			}
+		}.runTask(instance);
 	}
 
 	/**
@@ -52,20 +75,43 @@ public class ArenaRegistry {
 	 * @param plugin the plugin
 	 * @param arena the arena
 	 */
-	public static void unregister(ArenaPlugin plugin, Arena arena) {
-		final List<Arena> current = registered.getOrDefault(plugin, new ArrayList<>());
-		Validate.isTrue(current.remove(arena), "Arena " + arena.getName() + " is not registered for " + plugin.getName());
+	public static void unregister(Arena arena) {
+		final List<Arena> current = registered.get(arena.getPlugin());
 
-		current.remove(arena);
+		Objects.requireNonNull(current, "Plugin " + arena.getPlugin().getName() + " associated with arena " + arena.getName() + " is not registered");
+		Validate.isTrue(current.remove(arena), "Arena " + arena.getName() + " is not registered for " + arena.getPlugin().getName());
 	}
 
 	/**
 	 * Clears all registered arenas for a plugin.
+	 * Removes all instances of the plugin with a name
+	 *
+	 * @param plugin the plugin
+	 * @return if the plugin was found
+	 */
+	public static boolean unregisterAll(String plugin) {
+		boolean found = false;
+
+		for (final Iterator<ArenaPlugin> it = registered.keySet().iterator(); it.hasNext();) {
+			final ArenaPlugin other = it.next();
+
+			if (other.getName().equals(plugin)) {
+				it.remove();
+
+				found = true;
+			}
+		}
+
+		return found;
+	}
+
+	/**
+	 * Unregister all arenas of an associated plugin
 	 *
 	 * @param plugin the plugin
 	 */
 	public static void unregisterAll(ArenaPlugin plugin) {
-		registered.remove(plugin);
+		Validate.isTrue(registered.remove(plugin) != null, "Plugin " + plugin + " is not registered at all");
 	}
 
 	/**
@@ -90,40 +136,42 @@ public class ArenaRegistry {
 	}
 
 	/**
+	 * Get if the plugin is registered - by name - not by the instance.
+	 * If you want to check if it is registered by instance, use {@link #getRegisteredPlugins()}.contains()
+	 *
+	 * @param plugin the plugin
+	 * @return if the plugin is registered
+	 */
+	public static boolean isRegistered(String plugin) {
+		for (final ArenaPlugin other : getRegisteredPlugins())
+			if (other.getName().equals(plugin))
+				return true;
+
+		return false;
+	}
+
+	/**
 	 * Represents an arena manager that is shared for all of the registered arenas.
 	 */
 	public static final class CommonArenaManager implements ArenaManager {
 
 		@Override
-		public final ArenaSign findArenaSign(Sign state) {
-			for (final Arena arena : getArenas()) {
-				final ArenaSigns signs = arena.getData().getSigns();
+		public final Set<Arena> getArenas() {
+			final Set<Arena> all = new HashSet<>();
 
-				if (signs != null) {
-					final ArenaSign arenasign = signs.getSignAt(state.getLocation());
+			for (final List<Arena> pluginArenas : registered.values())
+				all.addAll(pluginArenas);
 
-					if (arenasign != null)
-						return arenasign;
-				}
-			}
-
-			return null;
+			return all;
 		}
 
 		@Override
-		public final Arena findArena(Player pl) {
-			for (final Arena arena : getArenas()) {
-				if (!arena.getSetup().isReady())
-					continue;
+		public final List<String> getArenaNames() {
+			final List<String> all = new ArrayList<>();
 
-				if (arena.getPlayers().contains(pl)) {
-					Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Found player '" + pl.getName() + "' in a stopped arena " + arena.getName() + " by " + arena.getPlugin());
+			getArenas().forEach( (a) -> all.add(a.getName()) );
 
-					return arena;
-				}
-			}
-
-			return null;
+			return all;
 		}
 
 		@Override
@@ -136,27 +184,41 @@ public class ArenaRegistry {
 		}
 
 		@Override
-		public final Set<Arena> getArenas() {
-			final List<Arena> all = new ArrayList<>();
+		public final Arena findArena(Player pl) {
+			for (final Arena arena : getArenas()) {
+				if (!arena.getSetup().isReady())
+					continue;
 
-			for (final List<Arena> pluginArenas : registered.values())
-				all.addAll( pluginArenas );
+				if (arena.getPlayers().contains(pl)) {
+					if (!arena.isStopping())
+						Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Found player '" + pl.getName() + "' in a stopped arena " + arena.getName() + " by " + arena.getPlugin());
 
-			return new HashSet<>(all);
+					return arena;
+				}
+			}
+
+			return null;
+		}
+
+		@Override
+		public final ArenaSign findSign(Sign sign) {
+			for (final Arena arena : getArenas()) {
+				final ArenaSigns signs = arena.getData().getSigns();
+
+				if (signs != null) {
+					final ArenaSign arenaSign = signs.getSignAt(sign.getLocation());
+
+					if (arenaSign != null)
+						return arenaSign;
+				}
+			}
+
+			return null;
 		}
 
 		@Override
 		public final boolean isPlaying(Player pl) {
 			return findArena(pl) != null;
-		}
-
-		@Override
-		public final List<String> getArenaNames() {
-			final List<String> all = new ArrayList<>();
-
-			getArenas().forEach( (a) -> all.add(a.getName()) );
-
-			return all;
 		}
 	}
 }

@@ -2,6 +2,7 @@ package me.kangarko.kagameapi.impl;
 
 import org.bukkit.plugin.Plugin;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.kangarko.kagameapi.plugin.ArenaManager;
 import me.kangarko.kagameapi.plugin.ArenaPlugin;
@@ -13,6 +14,7 @@ import me.kangarko.kagameapi.registry.ArenaRegistry;
 @RequiredArgsConstructor
 public final class DummyPlugin implements ArenaPlugin {
 
+	@Getter
 	private final Plugin plugin;
 
 	@Override

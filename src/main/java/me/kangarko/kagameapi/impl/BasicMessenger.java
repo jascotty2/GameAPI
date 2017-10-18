@@ -91,7 +91,7 @@ public final class BasicMessenger implements ArenaMessenger {
 				return arena.getPlayers();
 
 			case WORLD:
-				return arena.getData().getRegion().getCenter().getWorld().getPlayers();
+				return arena.getData().getRegion().getWorld().getPlayers();
 
 			case SERVER:
 				return Bukkit.getOnlinePlayers();

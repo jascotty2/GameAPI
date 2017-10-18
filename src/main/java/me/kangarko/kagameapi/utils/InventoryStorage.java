@@ -34,6 +34,8 @@ public class InventoryStorage {
 	private final Map<String, StoredInventory> inventories = new HashMap<>();
 
 	public final void saveInventoryClone(Player pl) {
+		//debug("Saving inventory");
+
 		//Validate.isTrue(getStored(pl) == null, "Player " + pl.getName() + " already has stored inventory!");
 
 		final StoredInventory s = StoredInventory.builder()
@@ -79,6 +81,8 @@ public class InventoryStorage {
 	}
 
 	public final void restore(Player pl) {
+		//debug("Restore inventory");
+
 		final StoredInventory s = getStored(pl);
 		Validate.isTrue(s != null, "Player " + pl.getName() + " does not have a stored inventory!");
 
