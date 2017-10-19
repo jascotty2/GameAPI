@@ -1,4 +1,4 @@
-package me.kangarko.gameapi.plugin;
+package me.kangarko.gameapi;
 
 import org.bukkit.plugin.Plugin;
 

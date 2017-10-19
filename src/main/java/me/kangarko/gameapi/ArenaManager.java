@@ -1,13 +1,10 @@
-package me.kangarko.gameapi.plugin;
+package me.kangarko.gameapi;
 
 import java.util.List;
 import java.util.Set;
 
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
-
-import me.kangarko.gameapi.Arena;
-import me.kangarko.gameapi.ArenaSign;
 
 /**
  * Represents a simple manager of your loaded arenas

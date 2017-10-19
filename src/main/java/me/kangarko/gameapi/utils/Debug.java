@@ -16,7 +16,7 @@ public class Debug {
 		System.out.println("");
 
 		for (final StackTraceElement e : new Throwable().getStackTrace())
-			if (e.toString().contains("me.kangarko"))
+			if (e.toString().contains("me."))
 				System.out.println("    at " + e.toString());
 
 		System.out.println("------------------------------------------------------------------------------------------------------------");

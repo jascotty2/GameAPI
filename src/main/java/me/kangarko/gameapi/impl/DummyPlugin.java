@@ -4,8 +4,8 @@ import org.bukkit.plugin.Plugin;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import me.kangarko.gameapi.plugin.ArenaManager;
-import me.kangarko.gameapi.plugin.ArenaPlugin;
+import me.kangarko.gameapi.ArenaManager;
+import me.kangarko.gameapi.ArenaPlugin;
 import me.kangarko.gameapi.registry.ArenaRegistry;
 
 /**

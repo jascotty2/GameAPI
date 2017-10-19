@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.kangarko.gameapi.plugin.ArenaPlugin;
+import me.kangarko.gameapi.ArenaPlugin;
 import me.kangarko.gameapi.type.MenuType;
 
 /**

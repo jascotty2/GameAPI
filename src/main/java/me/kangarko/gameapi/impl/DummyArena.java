@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import lombok.RequiredArgsConstructor;
 import me.kangarko.gameapi.Arena;
 import me.kangarko.gameapi.ArenaMessenger;
+import me.kangarko.gameapi.ArenaPlugin;
 import me.kangarko.gameapi.ArenaSnapshotStage;
 import me.kangarko.gameapi.cause.DeathCause;
 import me.kangarko.gameapi.cause.JoinCause;
@@ -33,7 +34,6 @@ import me.kangarko.gameapi.event.ArenaPreJoinEvent;
 import me.kangarko.gameapi.event.ArenaPreLeaveEvent;
 import me.kangarko.gameapi.event.ArenaStartEvent;
 import me.kangarko.gameapi.event.LobbyStartEvent;
-import me.kangarko.gameapi.plugin.ArenaPlugin;
 import me.kangarko.gameapi.type.ArenaState;
 import me.kangarko.gameapi.utils.ExpItemTag;
 

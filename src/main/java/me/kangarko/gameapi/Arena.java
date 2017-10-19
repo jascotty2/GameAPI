@@ -23,7 +23,6 @@ import me.kangarko.gameapi.cause.JoinCause;
 import me.kangarko.gameapi.cause.LeaveCause;
 import me.kangarko.gameapi.cause.StopCause;
 import me.kangarko.gameapi.event.ArenaPreLeaveEvent;
-import me.kangarko.gameapi.plugin.ArenaPlugin;
 import me.kangarko.gameapi.type.ArenaState;
 import me.kangarko.gameapi.utils.ExpItemTag;
 public interface Arena {

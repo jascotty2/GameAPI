@@ -18,10 +18,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import lombok.Getter;
 import me.kangarko.gameapi.Arena;
+import me.kangarko.gameapi.ArenaManager;
+import me.kangarko.gameapi.ArenaPlugin;
 import me.kangarko.gameapi.ArenaSign;
 import me.kangarko.gameapi.ArenaSigns;
-import me.kangarko.gameapi.plugin.ArenaManager;
-import me.kangarko.gameapi.plugin.ArenaPlugin;
 import me.kangarko.gameapi.plugin.GameAPIPlugin;
 import me.kangarko.gameapi.type.ArenaState;
 

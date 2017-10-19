@@ -4,7 +4,7 @@
 
 	<groupId>me.kangarko.gameapi</groupId>
 	<artifactId>GameAPI</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>GameAPI</name>
@@ -16,7 +16,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<author>kangarko</author>
-		<mainClass>me.kangarko.kagame.plugin.GameAPIPlugin</mainClass>
+		<mainClass>me.kangarko.gameapi.plugin.GameAPIPlugin</mainClass>
 	</properties>
 
 	<repositories>
@@ -48,7 +48,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.2</version>
 			</plugin>
-				<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.7.0</version>
