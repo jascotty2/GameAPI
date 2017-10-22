@@ -2,25 +2,29 @@ package me.kangarko.gameapi.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.kangarko.gameapi.data.PlayerData;
+import me.kangarko.gameapi.listener.PlayerListener;
+import me.kangarko.gameapi.registry.ArenaRegistry;
+
 public final class GameAPIPlugin extends JavaPlugin {
 
-	/*@Override
+	@Override
 	public void onEnable() {
-		new BukkitRunnable() {
+		// Create data folder
+		saveResource("data.db", false);
 
-			@Override
-			public void run() {
-				int count = 0;
-				String message = "";
+		// Register events
+		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+	}
 
-				for (final ArenaPlugin pl : ArenaRegistry.getRegisteredPlugins()) {
-					message += pl.getName() + ", ";
-
-					count ++;
-				}
-
-				getServer().getLogger().info("[" + getName() + "] Successfully hooked into (" + count + "): " + message.replaceAll("\\, $", ""));
-			}
-		}.runTask(this);
-	}*/
+	/**
+	 * Get the instance of this library, loaded on the server
+	 *
+	 * TIP: To start with, see {@link ArenaRegistry} and {@link PlayerData}
+	 *
+	 * @return this instance
+	 */
+	public static final GameAPIPlugin getInstance() {
+		return GameAPIPlugin.getPlugin(GameAPIPlugin.class);
+	}
 }
