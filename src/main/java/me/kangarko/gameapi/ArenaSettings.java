@@ -104,5 +104,7 @@ public interface ArenaSettings {
 
 	ArenaMaterialAllower getPlaceList();
 
+	Integer getTeamReward(int teamsLeft);
+
 	void removeSettingsFile();
 }

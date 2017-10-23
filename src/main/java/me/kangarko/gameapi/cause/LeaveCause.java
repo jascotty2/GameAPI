@@ -33,9 +33,9 @@ public enum LeaveCause {
 	ARENA_END,
 
 	/**
-	 * No class selected and could not chose a random class (no permission?)
+	 * No class or team selected and could not chose a random class or team (no permission?)
 	 */
-	NO_CLASS,
+	NOT_READY,
 
 	/**
 	 * The arena requires higher tier then all of the classes player dispose.

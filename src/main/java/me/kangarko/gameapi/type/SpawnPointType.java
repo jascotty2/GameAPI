@@ -7,7 +7,9 @@ public enum SpawnPointType {
 
 	MONSTER("Monster"),
 
-	PLAYER("Player");
+	PLAYER("Player"),
+
+	TEAM("Team");
 
 	private final String key;
 
