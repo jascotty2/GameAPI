@@ -54,6 +54,8 @@ public class PlayerData extends DataFile {
 	 * The amount of Nuggets, an in-game currency, the players has
 	 */
 	public final int getNuggets() {
+		load(); // In case other plugin has changed the value
+
 		return getInt("Nuggets", 0);
 	}
 
