@@ -23,7 +23,7 @@ public interface ArenaManager {
 	 *
 	 * @return a copy of all arena names
 	 */
-	public List<String> getArenaNames();
+	public List<String> getAvailable();
 
 	/**
 	 * Get a player's arena, or null if none

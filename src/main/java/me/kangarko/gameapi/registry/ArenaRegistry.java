@@ -166,7 +166,7 @@ public class ArenaRegistry {
 		}
 
 		@Override
-		public final List<String> getArenaNames() {
+		public final List<String> getAvailable() {
 			final List<String> all = new ArrayList<>();
 
 			getArenas().forEach( (a) -> all.add(a.getName()) );
