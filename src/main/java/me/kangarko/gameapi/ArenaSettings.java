@@ -106,5 +106,7 @@ public interface ArenaSettings {
 
 	Integer getTeamReward(int teamsLeft);
 
+	int getKillHeight();
+
 	void removeSettingsFile();
 }
