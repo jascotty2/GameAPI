@@ -31,6 +31,8 @@ public interface ArenaSign extends ConfigSerializable {
 
 		CLASS("Class"),
 
+		TEAM("Team"),
+
 		UPGRADE("Upgrade"),
 
 		POWER("Power");
