@@ -11,7 +11,8 @@ public final class GameAPIPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		// Create data folder
-		saveResource("data.db", false);
+		if (!getDataFolder().exists())
+			saveResource("data.db", false);
 
 		// Register events
 		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
