@@ -2,5 +2,5 @@ name: ${project.artifactId}
 main: ${mainClass}
 version: ${project.version}
 author: ${author}
-loadbefore: [CoreArena, Puncher]
+loadbefore: [CoreArena, Puncher, AutoPlay]
 commands: 
