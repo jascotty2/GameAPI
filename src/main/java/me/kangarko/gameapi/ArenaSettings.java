@@ -1,5 +1,7 @@
 package me.kangarko.gameapi;
 
+import java.util.List;
+
 import me.kangarko.gameapi.utils.ArenaMaterialAllower;
 import me.kangarko.gameapi.utils.ArenaTrigger;
 
@@ -7,6 +9,13 @@ import me.kangarko.gameapi.utils.ArenaTrigger;
  * Those are user-alterable settings stored in the arenas/ folder.
  */
 public interface ArenaSettings {
+
+	/**
+	 * Get the arena name.
+	 *
+	 * @return the arena name
+	 */
+	public String getName();
 
 	/**
 	 * Return which phase activates PvP (player may
@@ -90,23 +99,69 @@ public interface ArenaSettings {
 	 */
 	public int getPhaseDurationSeconds();
 
+	/**
+	 * Get an implementation of when chests should be refillen.
+	 *
+	 * @return the chest refill trigger
+	 */
+	public ArenaTrigger getChestRefill();
+
+	/**
+	 * Get material allower for things that can be broken.
+	 *
+	 * @return a list of things that can be broken
+	 */
+	public ArenaMaterialAllower getBreakingList();
+
+	/**
+	 * Get material allower for things that can be placed.
+	 *
+	 * @return a list of things that can be placed
+	 */
+	ArenaMaterialAllower getPlaceList();
+
+	/**
+	 * Get the commands to be run as the player when arena ends.
+	 *
+	 * @return the commands to be run as the player when arena ends.
+	 */
+	public List<String> getEndCommands();
+
+	// -------------------------------------------------------------------------------------
+	// Features for specific plugins or that needs to be implemented in those plugins
+	// -------------------------------------------------------------------------------------
+
+	/**
+	 * Calculate team reward depending on how many teams are left when arena ended.
+	 *
+	 * @param teamsLeft how many winning teams there are
+	 * @return the reward for the parameter
+	 */
+	public Integer getTeamReward(int teamsLeft);
+
+	/**
+	 * Get the y-height for which players are killed.
+	 * Only works if the plugin supports it (for ex. Puncher)
+	 *
+	 * @return the kill height
+	 */
+	public int getKillHeight();
+
 	// -------------------------------------------------------------------------------------
 	// Private API
 	// -------------------------------------------------------------------------------------
 
-	String getName();
-
+	/**
+	 * Get the internal data section
+	 *
+	 * @return the internal data section
+	 */
 	ArenaData getDataSection();
 
-	ArenaTrigger getChestRefill();
-
-	ArenaMaterialAllower getBreakingList();
-
-	ArenaMaterialAllower getPlaceList();
-
-	Integer getTeamReward(int teamsLeft);
-
-	int getKillHeight();
-
+	/**
+	 * Delete the settings file.
+	 *
+	 * This keeps arena registered, please use method in arena manager to remove arena!
+	 */
 	void removeSettingsFile();
 }
