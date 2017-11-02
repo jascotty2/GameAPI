@@ -58,6 +58,14 @@ public interface ArenaSettings {
 	public boolean allowNaturalDrops();
 
 	/**
+	 * Should players be teleported to a random spawnpoint, or to the first one
+	 * from when the arena started?
+	 *
+	 * @return whether respawning should teleport to random spawnpoints
+	 */
+	public boolean isRespawningRandom();
+
+	/**
 	 * Return the maximum players in the arena
 	 *
 	 * @return the maximum players in the arena
