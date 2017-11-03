@@ -41,6 +41,13 @@ public interface ArenaSettings {
 	public int getMinimumTier();
 
 	/**
+	 * Get the random distance around the mob spawner to spread mobs out.
+	 *
+	 * @return the random distance around the mob spawner to spread mobs out
+	 */
+	public int getMobSpread();
+
+	/**
 	 * Return whether or not the classes are completely
 	 * disabled in this arena and players may use their
 	 * own equipment from their gameplay.
@@ -126,7 +133,7 @@ public interface ArenaSettings {
 	 *
 	 * @return a list of things that can be placed
 	 */
-	ArenaMaterialAllower getPlaceList();
+	public ArenaMaterialAllower getPlaceList();
 
 	/**
 	 * Get the commands to be run as the player when arena ends.
