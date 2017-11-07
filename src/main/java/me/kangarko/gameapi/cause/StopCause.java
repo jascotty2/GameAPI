@@ -13,6 +13,11 @@ public enum StopCause {
 	NATURAL_TRIGGER,
 
 	/**
+	 * Natural, the last phase is out
+	 */
+	NATURAL_LAST_PHASE,
+
+	/**
 	 * The time is up!
 	 */
 	NATURAL_COUNTDOWN,

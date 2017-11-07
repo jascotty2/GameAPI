@@ -122,6 +122,13 @@ public interface ArenaSettings {
 	public ArenaTrigger getChestRefill();
 
 	/**
+	 * Get the last phase or -1 if not set (arena ends only when time is up).
+	 *
+	 * @return the last phase, -1 for no end phase
+	 */
+	public int getLastPhase();
+
+	/**
 	 * Get material allower for things that can be broken.
 	 *
 	 * @return a list of things that can be broken
