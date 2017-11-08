@@ -32,7 +32,7 @@ import me.kangarko.gameapi.event.ArenaLeaveEvent;
 import me.kangarko.gameapi.event.ArenaPostStopEvent;
 import me.kangarko.gameapi.event.ArenaPreJoinEvent;
 import me.kangarko.gameapi.event.ArenaPreLeaveEvent;
-import me.kangarko.gameapi.event.ArenaStartEvent;
+import me.kangarko.gameapi.event.ArenaPostStartEvent;
 import me.kangarko.gameapi.event.LobbyStartEvent;
 import me.kangarko.gameapi.type.ArenaState;
 import me.kangarko.gameapi.utils.ExpItemTag;
@@ -124,12 +124,12 @@ public abstract class DummyArena implements Arena {
 	public final boolean onArenaStart() {
 		state = ArenaState.RUNNING;
 
-		callEvent(new ArenaStartEvent(this));
+		callEvent(new ArenaPostStartEvent(this));
 		return handleArenaStart();
 	}
 
 	/**
-	 * Called after arena starts and the {@link ArenaStartEvent} has been fired.
+	 * Called after arena starts and the {@link ArenaPostStartEvent} has been fired.
 	 */
 	protected abstract boolean handleArenaStart();
 
