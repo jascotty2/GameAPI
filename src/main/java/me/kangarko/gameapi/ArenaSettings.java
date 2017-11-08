@@ -1,7 +1,6 @@
 package me.kangarko.gameapi;
 
-import java.util.List;
-
+import me.kangarko.gameapi.utils.ArenaCommands;
 import me.kangarko.gameapi.utils.ArenaMaterialAllower;
 import me.kangarko.gameapi.utils.ArenaTrigger;
 
@@ -143,11 +142,25 @@ public interface ArenaSettings {
 	public ArenaMaterialAllower getPlaceList();
 
 	/**
-	 * Get the commands to be run as the player when arena ends.
+	 * Get the commands to be run when arena starts.
 	 *
-	 * @return the commands to be run as the player when arena ends.
+	 * @return the commands.
 	 */
-	public List<String> getEndCommands();
+	public ArenaCommands getStartCommands();
+
+	/**
+	 * Get the commands to be run on the next phase.
+	 *
+	 * @return the commands.
+	 */
+	public ArenaCommands getPhaseCommands();
+
+	/**
+	 * Get the commands to be run when arena ends.
+	 *
+	 * @return the commands.
+	 */
+	public ArenaCommands getEndCommands();
 
 	// -------------------------------------------------------------------------------------
 	// Features for specific plugins or that needs to be implemented in those plugins
