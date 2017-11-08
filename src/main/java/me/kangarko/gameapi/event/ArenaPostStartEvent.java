@@ -12,7 +12,7 @@ import me.kangarko.gameapi.Arena;
  */
 @Getter
 @RequiredArgsConstructor
-public final class ArenaStartEvent extends Event {
+public final class ArenaPostStartEvent extends Event {
 
 	private static final HandlerList handlers = new HandlerList();
 
