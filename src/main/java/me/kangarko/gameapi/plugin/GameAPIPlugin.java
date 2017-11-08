@@ -1,6 +1,7 @@
 package me.kangarko.gameapi.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.Messenger;
 
 import me.kangarko.gameapi.data.PlayerData;
 import me.kangarko.gameapi.listener.PlayerListener;
@@ -16,6 +17,11 @@ public final class GameAPIPlugin extends JavaPlugin {
 
 		// Register events
 		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+
+		// Register BungeeCord channel, for ArenaCommands
+		final Messenger m = getServer().getMessenger();
+		if (!m.isOutgoingChannelRegistered(this, "BungeeCord"))
+			m.registerOutgoingPluginChannel(this, "BungeeCord");
 	}
 
 	/**
