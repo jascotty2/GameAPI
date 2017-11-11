@@ -3,6 +3,7 @@ package me.kangarko.gameapi;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 
@@ -40,6 +41,14 @@ public interface ArenaManager {
 	 * @return an arena, or null if not found
 	 */
 	public Arena findArena(String name);
+
+	/**
+	 * Get arena at the location, or null if none
+	 *
+	 * @param loc the location
+	 * @return an arena, or null if not found
+	 */
+	public Arena findArena(Location loc);
 
 	/**
 	 * Wrap a sign into an arena sign, if exist

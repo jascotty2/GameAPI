@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -23,7 +24,6 @@ import me.kangarko.gameapi.ArenaPlugin;
 import me.kangarko.gameapi.ArenaSign;
 import me.kangarko.gameapi.ArenaSigns;
 import me.kangarko.gameapi.plugin.GameAPIPlugin;
-import me.kangarko.gameapi.type.ArenaState;
 
 /**
  * The main class that you need to utilize in order for your plugin to be
@@ -184,14 +184,23 @@ public class ArenaRegistry {
 		}
 
 		@Override
+		public final Arena findArena(Location loc) {
+			for (final Arena arena : getArenas())
+				if (arena.getData().getRegion() != null && arena.getData().getRegion().isWithin(loc))
+					return arena;
+
+			return null;
+		}
+
+		@Override
 		public final Arena findArena(Player pl) {
 			for (final Arena arena : getArenas()) {
 				if (!arena.getSetup().isReady())
 					continue;
 
 				if (arena.getPlayers().contains(pl)) {
-					if (!arena.isStopping())
-						Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Found player '" + pl.getName() + "' in a stopped arena " + arena.getName() + " by " + arena.getPlugin());
+					//if (!arena.isStopping())
+					//	Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Found player '" + pl.getName() + "' in a stopped arena " + arena.getName() + " by " + arena.getPlugin());
 
 					return arena;
 				}
