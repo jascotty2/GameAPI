@@ -72,6 +72,14 @@ public interface ArenaSettings {
 	public boolean isRespawningRandom();
 
 	/**
+	 * Get if monsters should burn on the sunlight.
+	 * Default: false
+	 *
+	 * @return if monsters should burn
+	 */
+	public boolean allowMonstersBurn();
+
+	/**
 	 * Return the maximum players in the arena
 	 *
 	 * @return the maximum players in the arena

@@ -49,10 +49,11 @@ public final class ArenaCommands {
 	 * for each online player in said arena.
 	 *
 	 * @param arena
+	 * @param consoleForEach run console commands for each player as the console or from the console, once?
 	 * @param player
 	 */
-	public final void run(Arena arena) {
-		runConsole(arena);
+	public final void run(Arena arena, boolean consoleForEach) {
+		runConsole(arena,consoleForEach);
 
 		for (final Player player : arena.getPlayers())
 			runPlayer(arena, player);
@@ -83,12 +84,18 @@ public final class ArenaCommands {
 	 * Run {@link #consoleCommands} as the server operator.
 	 *
 	 * @param arena
+	 * @param consoleForEach run console commands for each player as the console or from the console, once?
 	 */
-	public final void runConsole(Arena arena) {
+	public final void runConsole(Arena arena, boolean consoleForEach) {
 		for (final String cmd : consoleCommands) {
 			final String coloredCommand = GameAPIUtils.colorize( arena.getMessenger().replaceVariables(cmd) );
 
-			schedule(() -> Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), coloredCommand));
+			if (consoleForEach)
+				for (final Player player : arena.getPlayers())
+					schedule(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), coloredCommand.replace("{player}", player.getName())));
+
+			else
+				schedule(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), coloredCommand));
 		}
 	}
 
