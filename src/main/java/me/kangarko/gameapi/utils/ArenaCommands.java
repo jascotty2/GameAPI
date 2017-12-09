@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import me.kangarko.gameapi.Arena;
-import me.kangarko.gameapi.plugin.GameAPIPlugin;
 
 /**
  * A collections of commands that are run during a course of an arena.
@@ -76,7 +75,7 @@ public final class ArenaCommands {
 				BungeeMessaging.sendBungeeMessage(player, "Connect", coloredCommand.replaceFirst("@connect ", ""));
 
 			else
-				schedule(() -> player.performCommand(coloredCommand));
+				player.performCommand(coloredCommand);
 		}
 	}
 
@@ -92,15 +91,30 @@ public final class ArenaCommands {
 
 			if (consoleForEach)
 				for (final Player player : arena.getPlayers())
-					schedule(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), coloredCommand.replace("{player}", player.getName())));
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), coloredCommand.replace("{player}", player.getName()));
 
 			else
-				schedule(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), coloredCommand));
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), coloredCommand);
+		}
+	}
+
+	public final void runConsoleFor(Arena arena, Player player) {
+		for (final String cmd : consoleCommands) {
+			final String coloredCommand = GameAPIUtils.colorize( arena.getMessenger().replaceVariables(cmd.replace("{player}", player.getName())) );
+
+			if (cmd.startsWith("@tell "))
+				arena.getMessenger().tell(player, coloredCommand.replaceFirst("@tell ", ""));
+
+			else if (cmd.startsWith("@connect "))
+				BungeeMessaging.sendBungeeMessage(player, "Connect", coloredCommand.replaceFirst("@connect ", ""));
+
+			else
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), coloredCommand);
 		}
 	}
 
 	// Run a task on the main thread
-	private final void schedule(Runnable r) {
+	/*private final void schedule(Runnable r) {
 		Bukkit.getScheduler().scheduleSyncDelayedTask(GameAPIPlugin.getInstance(), r);
-	}
+	}*/
 }
