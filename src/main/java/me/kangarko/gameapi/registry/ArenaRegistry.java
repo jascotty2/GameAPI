@@ -57,7 +57,7 @@ public class ArenaRegistry {
 
 	// Print to the console that it has been recorded for the first time.
 	private static final void log(Plugin plugin) {
-		final Plugin instance = GameAPIPlugin.getPlugin(GameAPIPlugin.class);
+		final Plugin instance = GameAPIPlugin.getInstance();
 
 		// Delay so we wont interrupt a plugin's loading pace.
 		new BukkitRunnable() {

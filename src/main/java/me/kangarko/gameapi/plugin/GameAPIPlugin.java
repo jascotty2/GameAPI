@@ -1,5 +1,6 @@
 package me.kangarko.gameapi.plugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.Messenger;
 
@@ -32,6 +33,6 @@ public final class GameAPIPlugin extends JavaPlugin {
 	 * @return this instance
 	 */
 	public static final GameAPIPlugin getInstance() {
-		return GameAPIPlugin.getPlugin(GameAPIPlugin.class);
+		return (GameAPIPlugin) Bukkit.getPluginManager().getPlugin("GameAPI");
 	}
 }
