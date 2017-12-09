@@ -170,6 +170,13 @@ public interface ArenaSettings {
 	 */
 	public ArenaCommands getEndCommands();
 
+	/**
+	 * Get the commands to be run when a player leaves for whatever reason.
+	 *
+	 * @return the commands.
+	 */
+	public ArenaCommands getPlayerLeaveCommands();
+
 	// -------------------------------------------------------------------------------------
 	// Features for specific plugins or that needs to be implemented in those plugins
 	// -------------------------------------------------------------------------------------
