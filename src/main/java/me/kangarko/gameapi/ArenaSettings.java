@@ -32,6 +32,13 @@ public interface ArenaSettings {
 	public int getLastPhase();
 
 	/**
+	 * Get the phase after which arena ends automatically when all monsters are killed.
+	 *
+	 * @return the end phase no monsters, or -1 if feature disabled
+	 */
+	public int getEndPhaseNoMonsters();
+
+	/**
 	 * Get the last phase or -1 if not set (arena will still continue to play, just
 	 * the phase won't increase anymore after it has reached the limit).
 	 *
