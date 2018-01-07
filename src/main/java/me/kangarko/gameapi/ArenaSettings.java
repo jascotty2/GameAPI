@@ -25,6 +25,21 @@ public interface ArenaSettings {
 	public int getPvpPhase();
 
 	/**
+	 * Get the last phase or -1 if not set (arena ends only when time is up).
+	 *
+	 * @return the last phase, -1 for no end phase
+	 */
+	public int getLastPhase();
+
+	/**
+	 * Get the last phase or -1 if not set (arena will still continue to play, just
+	 * the phase won't increase anymore after it has reached the limit).
+	 *
+	 * @return the max phase, -1 for no infinite increase
+	 */
+	public int getMaxPhase();
+
+	/**
 	 * Return how many times the player may get
 	 * killed before they loose and get kicked out of the arena.
 	 *
@@ -127,13 +142,6 @@ public interface ArenaSettings {
 	 * @return the chest refill trigger
 	 */
 	public ArenaTrigger getChestRefill();
-
-	/**
-	 * Get the last phase or -1 if not set (arena ends only when time is up).
-	 *
-	 * @return the last phase, -1 for no end phase
-	 */
-	public int getLastPhase();
 
 	/**
 	 * Get material allower for things that can be broken.

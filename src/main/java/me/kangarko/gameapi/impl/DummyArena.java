@@ -29,10 +29,10 @@ import me.kangarko.gameapi.cause.LeaveCause;
 import me.kangarko.gameapi.cause.StopCause;
 import me.kangarko.gameapi.event.ArenaJoinEvent;
 import me.kangarko.gameapi.event.ArenaLeaveEvent;
+import me.kangarko.gameapi.event.ArenaPostStartEvent;
 import me.kangarko.gameapi.event.ArenaPostStopEvent;
 import me.kangarko.gameapi.event.ArenaPreJoinEvent;
 import me.kangarko.gameapi.event.ArenaPreLeaveEvent;
-import me.kangarko.gameapi.event.ArenaPostStartEvent;
 import me.kangarko.gameapi.event.LobbyStartEvent;
 import me.kangarko.gameapi.type.ArenaState;
 import me.kangarko.gameapi.utils.ExpItemTag;
@@ -232,6 +232,10 @@ public abstract class DummyArena implements Arena {
 
 	@Override
 	public void onProjectileLaunch(ProjectileLaunchEvent e) {
+	}
+
+	@Override
+	public void onEntitySpawn(LivingEntity en) {
 	}
 
 	/**

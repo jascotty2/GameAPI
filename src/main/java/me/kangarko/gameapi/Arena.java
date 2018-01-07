@@ -154,13 +154,15 @@ public interface Arena {
 
 	void onPlayerBlockBreak(BlockBreakEvent e);
 
-	void onEntityTarget(EntityTargetEvent e);
-
-	void onEntityDeath(EntityDeathEvent e);
-
 	void onPlayerRespawn(PlayerRespawnEvent e);
 
 	void onPlayerPickupTag(PlayerPickupItemEvent e, ExpItemTag tag);
+
+	void onEntitySpawn(LivingEntity en);
+
+	void onEntityTarget(EntityTargetEvent e);
+
+	void onEntityDeath(EntityDeathEvent e);
 
 	default void onProjectileLaunch(ProjectileLaunchEvent e) {
 	}
