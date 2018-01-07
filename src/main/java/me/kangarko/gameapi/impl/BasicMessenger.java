@@ -2,7 +2,6 @@ package me.kangarko.gameapi.impl;
 
 import java.util.Collection;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -14,6 +13,7 @@ import me.kangarko.gameapi.Arena;
 import me.kangarko.gameapi.ArenaMessenger;
 import me.kangarko.gameapi.type.ArenaSound;
 import me.kangarko.gameapi.type.MessengerTarget;
+import me.kangarko.gameapi.utils.LegacyAPI;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -94,7 +94,7 @@ public final class BasicMessenger implements ArenaMessenger {
 				return arena.getData().getRegion().getWorld().getPlayers();
 
 			case SERVER:
-				return Bukkit.getOnlinePlayers();
+				return LegacyAPI.getOnlinePlayers();
 
 			default: throw new RuntimeException("Unhandled target " + target);
 		}
