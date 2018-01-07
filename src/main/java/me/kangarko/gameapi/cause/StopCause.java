@@ -23,6 +23,11 @@ public enum StopCause {
 	NATURAL_COUNTDOWN,
 
 	/**
+	 * There are no more monsters alive.
+	 */
+	NATURAL_NO_MONSTERS,
+
+	/**
 	 * Stopped by a command or a server reload
 	 */
 	INTERRUPTED_COMMAND,
