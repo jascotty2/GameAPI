@@ -15,4 +15,4 @@ Open-source library for mini-game plugins. This is a full plugin that shall be p
 2. Register each of you arena manually in 'ArenaRegistry'.
 3. Done! Now you have access to your arenas from anywhere, and you can also listen to events in the event package.
 
-© Copyright 2017 kangarko | All Rights Reserved.
+© Copyright 2017 - 2018 kangarko | All Rights Reserved.
