@@ -17,7 +17,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import me.kangarko.gameapi.Arena;
 import me.kangarko.gameapi.ArenaManager;
 import me.kangarko.gameapi.ArenaPlugin;
@@ -35,8 +37,7 @@ public class ArenaRegistry {
 
 	private static final HashMap<ArenaPlugin, List<Arena>> registered = new HashMap<>();
 
-	@Getter
-	private static final ArenaManager arenaManager = new CommonArenaManager();
+	private static final ArenaManager commonArenaManager = new CommonArenaManager();
 
 	/**
 	 * Register your arena within your arena plugin.
@@ -151,12 +152,62 @@ public class ArenaRegistry {
 	}
 
 	/**
-	 * Represents an arena manager that is shared for all of the registered arenas.
+	 * Returns an arena manager for a specified plugin
+	 *
+	 * @param plugin an arena plugin
+	 * @return the arena manager
 	 */
-	public static final class CommonArenaManager implements ArenaManager {
+	public static ArenaManager getArenaManager(ArenaPlugin plugin) {
+		return new SpecificArenaManager(plugin);
+	}
+
+	/**
+	 * Returns arena manager that has all arenas from all plugins.
+	 *
+	 * BEWARE: Misuse leads to problems since methods in here return/search in all arenas
+	 * in all compatible plugins (e.g. Puncher+CoreArena).
+	 *
+	 * @deprecated potentially dangerous
+	 * @return the common arena manager
+	 */
+	@Deprecated
+	public static ArenaManager getCommonManager() {
+		return commonArenaManager;
+	}
+
+	/**
+	 * An arena manager that only returns arenas for a specific {@link ArenaPlugin}
+	 */
+	@RequiredArgsConstructor(access=AccessLevel.PRIVATE)
+	public static final class SpecificArenaManager extends CommonArenaManager {
+
+		/**
+		 * The plugin linked to this manager.
+		 */
+		@NonNull
+		private final ArenaPlugin plugin;
 
 		@Override
 		public final Set<Arena> getArenas() {
+			final HashSet<Arena> set = new HashSet<>(super.getArenas());
+
+			// Remove all arenas not owned by our plugin
+			set.removeIf((arena) -> !arena.getPlugin().getName().equals(plugin.getName()));
+
+			return set;
+		}
+	}
+
+	/**
+	 * Represents an arena manager that is shared for all of the registered arenas.
+	 */
+	public static class CommonArenaManager implements ArenaManager {
+
+		private CommonArenaManager() {
+		}
+
+		@Override
+		public Set<Arena> getArenas() {
 			final Set<Arena> all = new HashSet<>();
 
 			for (final List<Arena> pluginArenas : registered.values())
@@ -198,12 +249,8 @@ public class ArenaRegistry {
 				if (!arena.getSetup().isReady())
 					continue;
 
-				if (arena.getPlayers().contains(pl)) {
-					//if (!arena.isStopping())
-					//	Validate.isTrue(arena.getState() != ArenaState.STOPPED, "Report / Found player '" + pl.getName() + "' in a stopped arena " + arena.getName() + " by " + arena.getPlugin());
-
+				if (arena.getPlayers().contains(pl))
 					return arena;
-				}
 			}
 
 			return null;
