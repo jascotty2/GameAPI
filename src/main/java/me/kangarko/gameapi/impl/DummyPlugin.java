@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.kangarko.gameapi.ArenaManager;
 import me.kangarko.gameapi.ArenaPlugin;
-import me.kangarko.gameapi.registry.ArenaRegistry;
 
 /**
  * Represents a dummy arena plugin using a shared arena manager.
@@ -25,6 +24,6 @@ public final class DummyPlugin implements ArenaPlugin {
 	// Return a common automatic registry.
 	@Override
 	public final ArenaManager getArenas() {
-		return ArenaRegistry.getArenaManager();
+		throw new UnsupportedOperationException("Use ArenaRegistry to get ArenaManager");
 	}
 }
