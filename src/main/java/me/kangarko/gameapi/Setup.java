@@ -10,14 +10,17 @@ public interface Setup {
 
 	public void onLeaveEditMode(Player player);
 
-	public boolean isEdited();
-
 	public void onSetupClick(Player pl, Action action, Block clickedBlock);
 
 	// Methods
 	// -----------------------------------------------------
 
+	/** can be null */
+	public Player getEditor();
+
 	public boolean areJoinSignsSet();
+
+	public boolean isEdited();
 
 	public boolean isLobbySet();
 
