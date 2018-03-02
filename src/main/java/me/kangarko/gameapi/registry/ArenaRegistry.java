@@ -273,6 +273,23 @@ public class ArenaRegistry {
 		}
 
 		@Override
+		public Arena findEditedArena(Player player) {
+			for (final Arena arena : getArenas()) {
+				final Player editor = arena.getSetup().getEditor();
+
+				if (editor != null && editor.isOnline() && editor.getName().equals(player.getName()))
+					return arena;
+			}
+
+			return null;
+		}
+
+		@Override
+		public boolean isEditing(Player player) {
+			return findEditedArena(player) != null;
+		}
+
+		@Override
 		public final boolean isPlaying(Player pl) {
 			return findArena(pl) != null;
 		}
