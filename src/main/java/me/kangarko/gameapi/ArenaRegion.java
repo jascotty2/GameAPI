@@ -33,4 +33,8 @@ public interface ArenaRegion extends ConfigSerializable {
 	}
 
 	public boolean isWithin(Location loc);
+
+	public default boolean isComplete() {
+		return true;
+	}
 }
