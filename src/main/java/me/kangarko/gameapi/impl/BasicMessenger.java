@@ -91,7 +91,10 @@ public final class BasicMessenger implements ArenaMessenger {
 				return arena.getPlayers();
 
 			case WORLD:
-				return arena.getData().getRegion().getWorld().getPlayers();
+				if (arena.getData().getRegion().getWorld() != null)
+					return arena.getData().getRegion().getWorld().getPlayers();
+				else
+					throw new RuntimeException("Attempted to get recipients for arena " + arena.getName() + " that has not world/region yet!");
 
 			case SERVER:
 				return LegacyAPI.getOnlinePlayers();
