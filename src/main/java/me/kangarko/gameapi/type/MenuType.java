@@ -4,5 +4,7 @@ public enum MenuType {
 
 	CLASSES,
 
+	TEAMS,
+
 	OTHER
 }
