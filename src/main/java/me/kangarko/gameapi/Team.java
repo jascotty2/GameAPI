@@ -28,7 +28,7 @@ public interface Team extends Iconable {
 
 	public boolean mayObtain(Player player);
 
-	public void giveTeamItems(Player player);
+	public void giveTeamHelmet(Player player);
 
 
 	public void deleteTeam();

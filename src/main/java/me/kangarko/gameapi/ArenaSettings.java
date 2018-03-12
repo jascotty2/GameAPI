@@ -102,6 +102,13 @@ public interface ArenaSettings {
 	public boolean allowMonstersBurn();
 
 	/**
+	 * Place team helmets?
+	 *
+	 * @return whether or not to place them!
+	 */
+	public boolean placeTeamHelmets();
+
+	/**
 	 * Return the maximum players in the arena
 	 *
 	 * @return the maximum players in the arena
