@@ -25,6 +25,13 @@ public interface ArenaSettings {
 	public int getPvpPhase();
 
 	/**
+	 * Get when we should stop the arena if there is less or equals players
+	 *
+	 * @return see above
+	 */
+	public int getAutoStopPlayersLimit();
+
+	/**
 	 * Get the last phase or -1 if not set (arena ends only when time is up).
 	 *
 	 * @return the last phase, -1 for no end phase
