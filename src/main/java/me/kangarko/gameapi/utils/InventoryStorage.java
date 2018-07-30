@@ -73,7 +73,9 @@ public class InventoryStorage {
 			s.setSilent(pl.isSilent());
 			s.setGlowing(pl.isGlowing());
 			s.setScoreboardTags(pl.getScoreboardTags());
-		} catch (final NoSuchMethodError err) {}
+
+		} catch (final NoSuchMethodError err) {
+		}
 
 		inventories.put(pl.getName(), s);
 	}
