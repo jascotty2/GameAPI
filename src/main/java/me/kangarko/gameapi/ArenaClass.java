@@ -8,7 +8,7 @@ import me.kangarko.gameapi.utils.TierSettings;
 
 public interface ArenaClass extends Iconable {
 
-	public String getPermission();
+	//public String getPermission();
 
 	public String getName();
 
@@ -27,6 +27,8 @@ public interface ArenaClass extends Iconable {
 	public TierSettings getTierSettings(int tier);
 
 	public boolean isValid();
+
+	public boolean mayObtain(Player player);
 
 	void deleteClass();
 }
