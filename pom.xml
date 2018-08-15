@@ -5,7 +5,7 @@
 
 	<groupId>me.kangarko.gameapi</groupId>
 	<artifactId>GameAPI</artifactId>
-	<version>1.2.3</version>
+	<version>1.2.4</version>
 	<packaging>jar</packaging>
 
 	<name>GameAPI</name>
