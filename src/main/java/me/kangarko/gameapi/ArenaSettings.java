@@ -193,7 +193,14 @@ public interface ArenaSettings {
 	public ArenaCommands getPhaseCommands();
 
 	/**
-	 * Get the commands to be run when arena ends.
+	 * Get the commands to only be run when arena ends gracefully.
+	 *
+	 * @return the commands.
+	 */
+	public ArenaCommands getFinishCommands();
+
+	/**
+	 * Get the commands to be run when arena ends for whatever reason.
 	 *
 	 * @return the commands.
 	 */
