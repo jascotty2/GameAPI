@@ -116,6 +116,27 @@ public interface ArenaSettings {
 	public boolean placeTeamHelmets();
 
 	/**
+	 * Should right clicking with bones spawn wolves?
+	 *
+	 * @return if right clicking with bones spawn wolves
+	 */
+	public boolean spawnWolves();
+
+	/**
+	 * Should right clicking with fireballs launch them?
+	 *
+	 * @return if right clicking with fireballs launch them?
+	 */
+	public boolean launchFireballs();
+
+	/**
+	 * Should placing tnt ignite it?
+	 *
+	 * @return if placing tnt ignites it
+	 */
+	public boolean igniteTnts();
+
+	/**
 	 * Return the maximum players in the arena
 	 *
 	 * @return the maximum players in the arena
