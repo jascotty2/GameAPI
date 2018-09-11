@@ -164,6 +164,8 @@ public interface Arena {
 
 	void onEntityDeath(EntityDeathEvent e);
 
+	void restoreSnapshots(boolean flag);
+
 	default void onProjectileLaunch(ProjectileLaunchEvent e) {
 	}
 
