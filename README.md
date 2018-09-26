@@ -1,3 +1,5 @@
+*NOTICE: We apologies but the documentation has been scrapped. This project is mainly used as a library for our properitary plugins. An early documentation was to be made for everyone to use but due to life priorities had to be cancelled.*
+
 # GameAPI
 Open-source library for mini-game plugins. This is a full plugin that shall be placed onto your server. It does nothing on its own, but allows other plugins to inter-communicate and it makes it easier for you to create event/minigame plugins.
 
