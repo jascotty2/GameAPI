@@ -200,6 +200,13 @@ public interface ArenaSettings {
 	public ArenaMaterialAllower getPlaceList();
 
 	/**
+	 * Get items that always take damage regardless of Arena.Auto_Repair in settings.yml
+	 *
+	 * @return items that always take damage
+	 */
+	public ArenaMaterialAllower getRepairBlacklist();
+
+	/**
 	 * Get the commands to be run when arena starts.
 	 *
 	 * @return the commands.
