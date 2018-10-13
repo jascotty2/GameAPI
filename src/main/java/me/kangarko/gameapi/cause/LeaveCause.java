@@ -23,7 +23,7 @@ public enum LeaveCause {
 	ERROR,
 
 	/**
-	 * Pussy
+	 * Left by command or by clicking a sign
 	 */
 	COMMAND,
 
