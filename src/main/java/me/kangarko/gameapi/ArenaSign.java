@@ -28,13 +28,10 @@ public interface ArenaSign extends ConfigSerializable {
 	@RequiredArgsConstructor
 	public static enum SignType {
 		JOIN("Join"),
-
+		LEAVE("Leave"),
 		CLASS("Class"),
-
 		TEAM("Team"),
-
 		UPGRADE("Upgrade"),
-
 		POWER("Power");
 
 		@Getter
