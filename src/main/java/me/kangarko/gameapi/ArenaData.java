@@ -10,6 +10,10 @@ import me.kangarko.gameapi.type.SpawnPointType;
 
 public interface ArenaData extends Iconable {
 
+	public boolean isEnabled();
+
+	public void setEnabled(boolean enabled);
+
 	public void onPostLoad();
 
 	public Lobby getLobby();

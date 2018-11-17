@@ -276,6 +276,15 @@ public abstract class DummyArena implements Arena {
 	}
 
 	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+	}
+
+	@Override
 	public String toString() {
 		return "DummyArena{name=" + name + ",plugin=" + plugin.getName() + "}";
 	}

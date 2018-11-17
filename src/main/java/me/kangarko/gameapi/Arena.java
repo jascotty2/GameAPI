@@ -58,6 +58,20 @@ public interface Arena {
 	public String getName();
 
 	/**
+	 * Can players play this arena?
+	 *
+	 * @return is the arena enabled?
+	 */
+	public boolean isEnabled();
+
+	/**
+	 * Enabled arenas may be joined for playing, whereas disabled arenas may only be edited.
+	 *
+	 * @param enabled, toggle the arena being enabled
+	 */
+	public void setEnabled(boolean enabled);
+
+	/**
 	 * List of player names joined in the arena. This does not mean they are playing, it means
 	 * they are registered in the arena, for example in the lobby.
 	 */
