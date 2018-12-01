@@ -125,6 +125,13 @@ public interface Arena {
 	public int getRemainingSeconds();
 
 	/**
+	 * How many monsters that can be killed are in the arena?
+	 *
+	 * @return the alive monsters count
+	 */
+	public int getAliveMonsters();
+
+	/**
 	 * The plugin that owns this arena.
 	 *
 	 * @return the plugin
