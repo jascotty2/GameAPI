@@ -8,7 +8,7 @@ public interface ArenaPhase {
 
 	public void startCounter();
 
-	public void onNextPhase();
+	public void enterNextPhase();
 
 	public void onPhaseTick();
 

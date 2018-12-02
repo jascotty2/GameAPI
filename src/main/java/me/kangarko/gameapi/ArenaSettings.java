@@ -1,5 +1,6 @@
 package me.kangarko.gameapi;
 
+import me.kangarko.gameapi.type.NextPhaseMode;
 import me.kangarko.gameapi.utils.ArenaCommands;
 import me.kangarko.gameapi.utils.ArenaMaterialAllower;
 import me.kangarko.gameapi.utils.ArenaTrigger;
@@ -52,6 +53,13 @@ public interface ArenaSettings {
 	 * @return the max phase, -1 for no infinite increase
 	 */
 	public int getMaxPhase();
+
+	/**
+	 * When the arena should enter the next phase?
+	 *
+	 * @return the next phase mode
+	 */
+	public NextPhaseMode getNextPhaseMode();
 
 	/**
 	 * Return how many times the player may get
