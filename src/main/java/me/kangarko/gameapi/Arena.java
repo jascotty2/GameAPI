@@ -78,6 +78,13 @@ public interface Arena {
 	public Collection<Player> getPlayers();
 
 	/**
+	 * Check if a player is joined in the arena
+	 * @param player the player to check
+	 * @return 
+	 */
+    public boolean isJoined(Player player);
+	
+	/**
 	 * The game state.
 	 */
 	public ArenaState getState();
