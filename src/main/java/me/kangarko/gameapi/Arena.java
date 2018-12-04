@@ -79,11 +79,20 @@ public interface Arena {
 
 	/**
 	 * Check if a player is joined in the arena
+	 *
 	 * @param player the player to check
-	 * @return 
+	 * @return
 	 */
-    public boolean isJoined(Player player);
-	
+	public boolean isJoined(Player player);
+
+	/**
+	 * Check if a player is joined in the arena
+	 *
+	 * @param player the player to check
+	 * @return
+	 */
+	public boolean isJoined(String playerName);
+
 	/**
 	 * The game state.
 	 */
