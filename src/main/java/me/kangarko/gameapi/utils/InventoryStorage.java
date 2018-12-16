@@ -132,6 +132,9 @@ public class InventoryStorage {
 				pl.addScoreboardTag(tag);
 		} catch (final Throwable err) {}
 
+		if(!pl.isOnline()) 
+			pl.saveData();
+
 		inventories.remove(pl.getName());
 	}
 
