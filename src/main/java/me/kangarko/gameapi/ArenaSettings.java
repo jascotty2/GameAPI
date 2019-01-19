@@ -4,6 +4,7 @@ import me.kangarko.gameapi.type.NextPhaseMode;
 import me.kangarko.gameapi.utils.ArenaCommands;
 import me.kangarko.gameapi.utils.ArenaMaterialAllower;
 import me.kangarko.gameapi.utils.ArenaTrigger;
+import org.bukkit.entity.Entity;
 
 /**
  * Those are user-alterable settings stored in the arenas/ folder.
@@ -248,6 +249,39 @@ public interface ArenaSettings {
 	 * @return the commands.
 	 */
 	public ArenaCommands getPlayerLeaveCommands();
+
+	/**
+	 * Checks the phase experience formula for this arena for how much exp to award<br>
+	 * First checks if there are any specific settings for the arena, 
+	 * and returns the global setting if none is set.
+	 * 
+	 * @param currentPhase the phase the arena is in.
+	 * @return experience.
+	 */
+	public int getPhaseExp(int currentPhase);
+
+	/**
+	 * Get the team experience for this arena <br>
+	 * First checks if there are any specific settings for the arena, 
+	 * and returns the global setting if none is set.
+	 * 
+	 * @param currentPhase the phase the arena is in.
+	 * @param reward reward to distribute.
+	 * @param playerCount how many players are in the arena.
+	 * @return experience formula.
+	 */
+	public int getTeamExp(int currentPhase, int reward, int playerCount);
+
+	/**
+	 * Checks the phase experience formula for this entity in this arena for how much exp to award<br>
+	 * First checks if there are any specific settings for the arena, 
+	 * and returns the global setting if none is set.
+	 * 
+	 * @param entity entity to lookup
+	 * @param currentPhase the phase the arena is in.
+	 * @return experience formula.
+	 */
+	public int getExpFor(Entity entity, int currentPhase);
 
 	// -------------------------------------------------------------------------------------
 	// Features for specific plugins or that needs to be implemented in those plugins
